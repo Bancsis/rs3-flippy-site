@@ -1,0 +1,1865 @@
+{
+  "Abyssal demon": [
+    {
+      "guide": "Money making guide/Killing abyssal demons",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Archaeology professor": [
+    {
+      "guide": "Money making guide/Pickpocketing Archaeology professors",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Crux Eqal Knight#Pickpocketing": [
+    {
+      "guide": "Money making guide/Pickpocketing Crux Eqal Knights",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Fairy trader#Pickpocketing": [
+    {
+      "guide": "Money making guide/Pickpocketing fairy traders",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "General Graardor#Normal mode": [
+    {
+      "guide": "Money making guide/Killing General Graardor",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Giant mole#Hard Mode F2P": [
+    {
+      "guide": "Money making guide/Killing the Giant Mole (Free-to-play, Hard Mode)",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Gnome#Pickpocketing": [
+    {
+      "guide": "Money making guide/Pickpocketing Gnomes",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Goebie scavenger#Pickpocketing": [
+    {
+      "guide": "Money making guide/Pickpocketing Goebie scavengers",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Grenwall": [
+    {
+      "guide": "Money making guide/High level private Grenwall hunting",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Igneous jadinko": [
+    {
+      "guide": "Money making guide/Hunting igneous jadinkos",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "K'ril Tsutsaroth#Normal mode": [
+    {
+      "guide": "Money making guide/Killing K'ril Tsutsaroth",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Kree'arra#Normal": [
+    {
+      "guide": "Money making guide/Killing Kree'arra",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Menaphos market guard#Pickpocketing": [
+    {
+      "guide": "Money making guide/Pickpocketing Menaphos market guards",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Paladin#Pickpocketing": [
+    {
+      "guide": "Money making guide/Pickpocketing paladins",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Ruby harvest": [
+    {
+      "guide": "Money making guide/Hunting ruby harvests",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Ruby harvest#Net": [
+    {
+      "guide": "Money making guide/Hunting ruby harvests",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Rune dragon": [
+    {
+      "guide": "Money making guide/Killing rune dragons",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "TzHaar-Hur trader#Pickpocketing": [
+    {
+      "guide": "Money making guide/Pickpocketing TzHaar-Hur traders",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Vyrewatch tither#Pickpocketing": [
+    {
+      "guide": "Money making guide/Pickpocketing Vyrewatch tither",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Wizards' Tower master mage#Pickpocketing": [
+    {
+      "guide": "Money making guide/Pickpocketing Wizards' Tower master mages",
+      "row": 0,
+      "confidence": "exact",
+      "inputSig": null,
+      "outputItem": null
+    }
+  ],
+  "Spirit weed incense sticks": [
+    {
+      "guide": "Money making guide/Adding herbs to incense sticks",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "12172+47694",
+      "outputItem": "spirit weed incense sticks"
+    }
+  ],
+  "Kwuarm incense sticks": [
+    {
+      "guide": "Money making guide/Adding herbs to incense sticks",
+      "row": 1,
+      "confidence": "mapped",
+      "inputSig": "263+47696",
+      "outputItem": "kwuarm incense sticks"
+    }
+  ],
+  "Lantadyme incense sticks": [
+    {
+      "guide": "Money making guide/Adding herbs to incense sticks",
+      "row": 2,
+      "confidence": "mapped",
+      "inputSig": "2481+47697",
+      "outputItem": "lantadyme incense sticks"
+    }
+  ],
+  "Banana": [
+    {
+      "guide": "Money making guide/Casting Bones to Bananas",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "526+555+557+561",
+      "outputItem": "banana"
+    }
+  ],
+  "Sapphire amulet": [
+    {
+      "guide": "Money making guide/Casting string jewellery",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1675+1759",
+      "outputItem": "sapphire amulet"
+    }
+  ],
+  "Emerald amulet": [
+    {
+      "guide": "Money making guide/Casting string jewellery",
+      "row": 1,
+      "confidence": "mapped",
+      "inputSig": "1677+1759",
+      "outputItem": "emerald amulet"
+    }
+  ],
+  "Ruby amulet": [
+    {
+      "guide": "Money making guide/Casting string jewellery",
+      "row": 2,
+      "confidence": "mapped",
+      "inputSig": "1679+1759",
+      "outputItem": "ruby amulet"
+    }
+  ],
+  "Diamond amulet": [
+    {
+      "guide": "Money making guide/Casting string jewellery",
+      "row": 3,
+      "confidence": "mapped",
+      "inputSig": "1681+1759",
+      "outputItem": "diamond amulet"
+    }
+  ],
+  "Molten glass": [
+    {
+      "guide": "Money making guide/Casting Superglass Make",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1781+1783",
+      "outputItem": "molten glass"
+    }
+  ],
+  "Blue blubber jellyfish": [
+    {
+      "guide": "Money making guide/Catching blue blubber jellyfish",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "raw blue blubber jellyfish"
+    }
+  ],
+  "Sailfish": [
+    {
+      "guide": "Money making guide/Catching sailfish",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "raw sailfish"
+    }
+  ],
+  "Jas dragonbane arrow": [
+    {
+      "guide": "Money making guide/Charging dinarrows",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "51804+53038",
+      "outputItem": "jas dragonbane arrow"
+    }
+  ],
+  "Wen arrow": [
+    {
+      "guide": "Money making guide/Charging dinarrows",
+      "row": 1,
+      "confidence": "mapped",
+      "inputSig": "51808+53038",
+      "outputItem": "wen arrow"
+    }
+  ],
+  "Bik arrow": [
+    {
+      "guide": "Money making guide/Charging dinarrows",
+      "row": 2,
+      "confidence": "mapped",
+      "inputSig": "51806+53038",
+      "outputItem": "bik arrow"
+    }
+  ],
+  "Ful arrow": [
+    {
+      "guide": "Money making guide/Charging dinarrows",
+      "row": 3,
+      "confidence": "mapped",
+      "inputSig": "51810+53038",
+      "outputItem": "ful arrow"
+    }
+  ],
+  "Adrenaline crystal": [
+    {
+      "guide": "Money making guide/Charging inert adrenaline crystals",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "adrenaline crystal"
+    }
+  ],
+  "Water orb": [
+    {
+      "guide": "Money making guide/Charging water orbs",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "555+564+567",
+      "outputItem": "water orb"
+    }
+  ],
+  "Cheese": [
+    {
+      "guide": "Money making guide/Churning cheese wheels",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "10002890",
+      "outputItem": "cheese"
+    }
+  ],
+  "Clean avantoe": [
+    {
+      "guide": "Money making guide/Cleaning grimy avantoe",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "211",
+      "outputItem": "clean avantoe"
+    }
+  ],
+  "Clean dwarf weed": [
+    {
+      "guide": "Money making guide/Cleaning grimy dwarf weed",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "clean dwarf weed"
+    }
+  ],
+  "Clean harralander": [
+    {
+      "guide": "Money making guide/Cleaning grimy harralander",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "clean harralander"
+    }
+  ],
+  "Clean irit": [
+    {
+      "guide": "Money making guide/Cleaning grimy irit",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "209",
+      "outputItem": "clean irit"
+    }
+  ],
+  "Clean kwuarm": [
+    {
+      "guide": "Money making guide/Cleaning grimy kwuarm",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "213",
+      "outputItem": "clean kwuarm"
+    }
+  ],
+  "Clean lantadyme": [
+    {
+      "guide": "Money making guide/Cleaning grimy lantadyme",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "2485",
+      "outputItem": "clean lantadyme"
+    }
+  ],
+  "Clean ranarr": [
+    {
+      "guide": "Money making guide/Cleaning grimy ranarr",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "207",
+      "outputItem": "clean ranarr"
+    }
+  ],
+  "Clean snapdragon": [
+    {
+      "guide": "Money making guide/Cleaning grimy snapdragon",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "3051",
+      "outputItem": "clean snapdragon"
+    }
+  ],
+  "Clean toadflax": [
+    {
+      "guide": "Money making guide/Cleaning grimy toadflax",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "3049",
+      "outputItem": "clean toadflax"
+    }
+  ],
+  "Clean torstol": [
+    {
+      "guide": "Money making guide/Cleaning grimy torstol",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "219",
+      "outputItem": "clean torstol"
+    }
+  ],
+  "Air rune": [
+    {
+      "guide": "Money making guide/Crafting air runes with a wicked hood",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1436",
+      "outputItem": "air rune"
+    }
+  ],
+  "Clockwork": [
+    {
+      "guide": "Money making guide/Crafting clockwork",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "2353",
+      "outputItem": "clockwork"
+    }
+  ],
+  "Cosmic rune": [
+    {
+      "guide": "Money making guide/Crafting cosmic runes",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "7936",
+      "outputItem": "cosmic rune"
+    }
+  ],
+  "Death rune": [
+    {
+      "guide": "Money making guide/Crafting death runes with Tirannwn quiver 3",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "death rune"
+    }
+  ],
+  "Decorated hunter urn (no rune)": [
+    {
+      "guide": "Money making guide/Crafting decorated urns (no rune)",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "10003492",
+      "outputItem": "decorated hunter urn (no rune)"
+    }
+  ],
+  "Diamond ring": [
+    {
+      "guide": "Money making guide/Crafting diamond jewellery",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1601+2357",
+      "outputItem": "diamond ring"
+    }
+  ],
+  "Diamond necklace": [
+    {
+      "guide": "Money making guide/Crafting diamond jewellery",
+      "row": 1,
+      "confidence": "mapped",
+      "inputSig": "1601+2357",
+      "outputItem": "diamond necklace"
+    }
+  ],
+  "Dragonstone ring": [
+    {
+      "guide": "Money making guide/Crafting dragonstone jewellery",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1615+2357",
+      "outputItem": "dragonstone ring"
+    }
+  ],
+  "Dragonstone necklace": [
+    {
+      "guide": "Money making guide/Crafting dragonstone jewellery",
+      "row": 1,
+      "confidence": "mapped",
+      "inputSig": "1615+2357",
+      "outputItem": "dragonstone necklace"
+    }
+  ],
+  "Dragonstone bracelet": [
+    {
+      "guide": "Money making guide/Crafting dragonstone jewellery",
+      "row": 2,
+      "confidence": "mapped",
+      "inputSig": "1615+2357",
+      "outputItem": "dragonstone bracelet"
+    }
+  ],
+  "Dragonstone amulet (unstrung)": [
+    {
+      "guide": "Money making guide/Crafting dragonstone jewellery",
+      "row": 3,
+      "confidence": "mapped",
+      "inputSig": "1615+2357",
+      "outputItem": "dragonstone amulet (unstrung)"
+    }
+  ],
+  "Emerald ring": [
+    {
+      "guide": "Money making guide/Crafting emerald jewellery",
+      "row": 1,
+      "confidence": "mapped",
+      "inputSig": "1605+2357",
+      "outputItem": "emerald ring"
+    }
+  ],
+  "Emerald necklace": [
+    {
+      "guide": "Money making guide/Crafting emerald jewellery",
+      "row": 2,
+      "confidence": "mapped",
+      "inputSig": "1605+2357",
+      "outputItem": "emerald necklace"
+    }
+  ],
+  "Emerald amulet (unstrung)": [
+    {
+      "guide": "Money making guide/Crafting emerald jewellery",
+      "row": 3,
+      "confidence": "mapped",
+      "inputSig": "1605+2357",
+      "outputItem": "emerald amulet (unstrung)"
+    }
+  ],
+  "Amulet of defence": [
+    {
+      "guide": "Money making guide/Crafting emerald jewellery",
+      "row": 5,
+      "confidence": "mapped",
+      "inputSig": "556+564+1696",
+      "outputItem": "amulet of defence"
+    }
+  ],
+  "Ganodermic leggings": [
+    {
+      "guide": "Money making guide/Crafting ganodermic leggings",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1734+22451+22454",
+      "outputItem": "ganodermic leggings"
+    }
+  ],
+  "Ganodermic poncho": [
+    {
+      "guide": "Money making guide/Crafting ganodermic ponchos",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1734+22451+22456",
+      "outputItem": "ganodermic poncho"
+    }
+  ],
+  "Ganodermic visor": [
+    {
+      "guide": "Money making guide/Crafting ganodermic visors",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1734+22451+22452",
+      "outputItem": "ganodermic visor"
+    }
+  ],
+  "Mist rune": [
+    {
+      "guide": "Money making guide/Crafting mist runes",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "555+1444+7936",
+      "outputItem": "mist rune"
+    }
+  ],
+  "Mud rune": [
+    {
+      "guide": "Money making guide/Crafting mud runes",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "557+1440+7936",
+      "outputItem": "mud rune"
+    }
+  ],
+  "Nature rune": [
+    {
+      "guide": "Money making guide/Crafting nature runes with spirit graahk",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "7936",
+      "outputItem": "nature rune"
+    }
+  ],
+  "Ruby ring": [
+    {
+      "guide": "Money making guide/Crafting ruby jewellery",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1603+2357",
+      "outputItem": "ruby ring"
+    }
+  ],
+  "Ruby necklace": [
+    {
+      "guide": "Money making guide/Crafting ruby jewellery",
+      "row": 2,
+      "confidence": "mapped",
+      "inputSig": "1603+2357",
+      "outputItem": "ruby necklace"
+    }
+  ],
+  "Sapphire ring": [
+    {
+      "guide": "Money making guide/Crafting sapphire jewellery",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1607+2357",
+      "outputItem": "sapphire ring"
+    }
+  ],
+  "Sapphire necklace": [
+    {
+      "guide": "Money making guide/Crafting sapphire jewellery",
+      "row": 1,
+      "confidence": "mapped",
+      "inputSig": "1607+2357",
+      "outputItem": "sapphire necklace"
+    }
+  ],
+  "Sapphire bracelet": [
+    {
+      "guide": "Money making guide/Crafting sapphire jewellery",
+      "row": 2,
+      "confidence": "mapped",
+      "inputSig": "1607+2357",
+      "outputItem": "sapphire bracelet"
+    }
+  ],
+  "Steam rune": [
+    {
+      "guide": "Money making guide/Crafting steam runes",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "554+1442+7936",
+      "outputItem": "steam rune"
+    }
+  ],
+  "Wooden cat": [
+    {
+      "guide": "Money making guide/Crafting wooden cats",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "948+960",
+      "outputItem": "wooden cat"
+    }
+  ],
+  "Spirit memento": [
+    {
+      "guide": "Money making guide/Creating spirit mementos",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "spirit memento"
+    }
+  ],
+  "Goat horn dust": [
+    {
+      "guide": "Money making guide/Crushing desert goat horns",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "9735",
+      "outputItem": "goat horn dust"
+    }
+  ],
+  "Elder tree": [
+    {
+      "guide": "Money making guide/Cutting elder logs",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "elder logs"
+    }
+  ],
+  "Jade": [
+    {
+      "guide": "Money making guide/Cutting jade",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1627",
+      "outputItem": "jade"
+    }
+  ],
+  "Tree": [
+    {
+      "guide": "Money making guide/Cutting logs",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "logs"
+    }
+  ],
+  "Oak": [
+    {
+      "guide": "Money making guide/Cutting oak logs",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "oak logs"
+    }
+  ],
+  "Willow": [
+    {
+      "guide": "Money making guide/Cutting willow logs",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "willow logs"
+    }
+  ],
+  "Ascendri bolts (e)": [
+    {
+      "guide": "Money making guide/Enchanting ascendri bolts",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "554+560+564+31868",
+      "outputItem": "ascendri bolts (e)"
+    }
+  ],
+  "Onyx bolts (e)": [
+    {
+      "guide": "Money making guide/Enchanting onyx bolts",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "554+560+564+9342",
+      "outputItem": "onyx bolts (e)"
+    }
+  ],
+  "Karambwan": [
+    {
+      "guide": "Money making guide/Fishing karambwan",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "raw karambwan"
+    }
+  ],
+  "Shaft": [
+    {
+      "guide": "Money making guide/Fletching arrow shafts",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1511",
+      "outputItem": "shaft"
+    }
+  ],
+  "Bakriminel bolts": [
+    {
+      "guide": "Money making guide/Fletching bakriminel bolts",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "bakriminel bolts"
+    }
+  ],
+  "Elder headless shaft": [
+    {
+      "guide": "Money making guide/Fletching elder headless arrows",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "314+47549",
+      "outputItem": "elder headless shaft"
+    }
+  ],
+  "Headless dinarrow": [
+    {
+      "guide": "Money making guide/Fletching headless dinarrows",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "53073+53083",
+      "outputItem": "headless dinarrow"
+    }
+  ],
+  "Onyx bolts": [
+    {
+      "guide": "Money making guide/Fletching onyx bolts",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "9144+9194",
+      "outputItem": "onyx bolts"
+    }
+  ],
+  "Chocolate dust": [
+    {
+      "guide": "Money making guide/Grinding chocolate bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1973",
+      "outputItem": "chocolate dust"
+    }
+  ],
+  "Divine charge": [
+    {
+      "guide": "Money making guide/Harvesting incandescent energy",
+      "row": 1,
+      "confidence": "mapped",
+      "inputSig": "29313+10001782",
+      "outputItem": "divine charge"
+    }
+  ],
+  "Soft clay": [
+    {
+      "guide": "Money making guide/Humidifying clay",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "434+554+555+9075",
+      "outputItem": "soft clay"
+    }
+  ],
+  "Vial of water": [
+    {
+      "guide": "Money making guide/Humidifying vials",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "229",
+      "outputItem": "vial of water"
+    }
+  ],
+  "Acadia incense sticks": [
+    {
+      "guide": "Money making guide/Making acadia incense sticks",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "40285",
+      "outputItem": "acadia incense sticks"
+    }
+  ],
+  "Blood Reaver scroll (Blood Siphon)": [
+    {
+      "guide": "Money making guide/Making blood reaver scrolls during the Amlodd Voice of Seren",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "49405",
+      "outputItem": "blood reaver scroll (blood siphon)"
+    }
+  ],
+  "Blue dye": [
+    {
+      "guide": "Money making guide/Making blue dye",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "995+1793",
+      "outputItem": "blue dye"
+    }
+  ],
+  "Bomb vial": [
+    {
+      "guide": "Money making guide/Making bomb vials",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1775",
+      "outputItem": "bomb vial"
+    }
+  ],
+  "Bread dough": [
+    {
+      "guide": "Money making guide/Making bread dough",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1933+1937",
+      "outputItem": "bread dough"
+    }
+  ],
+  "Combat bracelet": [
+    {
+      "guide": "Money making guide/Making combat bracelets",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "555+557+564+11115",
+      "outputItem": "combat bracelet"
+    }
+  ],
+  "Divination potion": [
+    {
+      "guide": "Money making guide/Making divination potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "10134+12181",
+      "outputItem": "divination potion (3)"
+    }
+  ],
+  "Smoke Devil scroll (Dust Cloud)": [
+    {
+      "guide": "Money making guide/Making dust cloud scrolls during the Amlodd Voice of Seren",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "12085",
+      "outputItem": "smoke devil scroll (dust cloud)"
+    }
+  ],
+  "Guam potion (unfinished)": [
+    {
+      "guide": "Money making guide/Making guam potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "227+249",
+      "outputItem": "guam potion (unfinished)"
+    }
+  ],
+  "Hunter potion": [
+    {
+      "guide": "Money making guide/Making Hunter potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "103+10111",
+      "outputItem": "hunter potion (3)"
+    }
+  ],
+  "Infernal urn (no rune)": [
+    {
+      "guide": "Money making guide/Making infernal urns",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "10005434",
+      "outputItem": "infernal urn (no rune)"
+    }
+  ],
+  "Luck potion": [
+    {
+      "guide": "Money making guide/Making luck potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "37914+37973",
+      "outputItem": "luck potion"
+    }
+  ],
+  "Magic incense sticks": [
+    {
+      "guide": "Money making guide/Making magic incense sticks",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1513",
+      "outputItem": "magic incense sticks"
+    }
+  ],
+  "Imperial district teleport": [
+    {
+      "guide": "Money making guide/Making Menaphos teleport tablets",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "563+1761",
+      "outputItem": "imperial district teleport"
+    }
+  ],
+  "Merchant district teleport": [
+    {
+      "guide": "Money making guide/Making Menaphos teleport tablets",
+      "row": 1,
+      "confidence": "mapped",
+      "inputSig": "563+1761",
+      "outputItem": "merchant district teleport"
+    }
+  ],
+  "Port district teleport": [
+    {
+      "guide": "Money making guide/Making Menaphos teleport tablets",
+      "row": 2,
+      "confidence": "mapped",
+      "inputSig": "563+1761",
+      "outputItem": "port district teleport"
+    }
+  ],
+  "Worker district teleport": [
+    {
+      "guide": "Money making guide/Making Menaphos teleport tablets",
+      "row": 3,
+      "confidence": "mapped",
+      "inputSig": "563+1761",
+      "outputItem": "worker district teleport"
+    }
+  ],
+  "Sophanem Slayer Dungeon teleport": [
+    {
+      "guide": "Money making guide/Making Menaphos teleport tablets",
+      "row": 4,
+      "confidence": "mapped",
+      "inputSig": "563+1761",
+      "outputItem": "sophanem slayer dungeon teleport"
+    }
+  ],
+  "Menaphos shifting tombs teleport": [
+    {
+      "guide": "Money making guide/Making Menaphos teleport tablets",
+      "row": 5,
+      "confidence": "mapped",
+      "inputSig": "563+1761",
+      "outputItem": "menaphos shifting tombs teleport"
+    }
+  ],
+  "Pastry dough": [
+    {
+      "guide": "Money making guide/Making pastry dough",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1933+1937",
+      "outputItem": "pastry dough"
+    }
+  ],
+  "Pizza base": [
+    {
+      "guide": "Money making guide/Making pizza bases in Mess Sergeant Ramsey's shop",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "pizza base"
+    }
+  ],
+  "Portent of restoration X": [
+    {
+      "guide": "Money making guide/Making portents of restoration X",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "15272+29324",
+      "outputItem": "portent of restoration x"
+    }
+  ],
+  "Potion flask": [
+    {
+      "guide": "Money making guide/Making potion flasks",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "potion flask"
+    }
+  ],
+  "Powerburst of sorcery": [
+    {
+      "guide": "Money making guide/Making powerbursts of sorcery",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "565+44077+48925+48960+48962",
+      "outputItem": "powerburst of sorcery (4)"
+    }
+  ],
+  "Prayer potion": [
+    {
+      "guide": "Money making guide/Making prayer potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "99+231",
+      "outputItem": "prayer potion (3)"
+    }
+  ],
+  "Primal extract": [
+    {
+      "guide": "Money making guide/Making primal extracts",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "229+48966",
+      "outputItem": "primal extract"
+    }
+  ],
+  "Raw admiral pie": [
+    {
+      "guide": "Money making guide/Making raw admiral pie",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1942+7194",
+      "outputItem": "raw admiral pie"
+    }
+  ],
+  "Raw summer pie": [
+    {
+      "guide": "Money making guide/Making raw summer pies",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1955+7214",
+      "outputItem": "raw summer pie"
+    }
+  ],
+  "Raw wild pie": [
+    {
+      "guide": "Money making guide/Making raw wild pies",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "3226+7204",
+      "outputItem": "raw wild pie"
+    }
+  ],
+  "Regular ritual candle": [
+    {
+      "guide": "Money making guide/Making ritual candles",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "55599+10000047",
+      "outputItem": "regular ritual candle"
+    }
+  ],
+  "Greater ritual candle": [
+    {
+      "guide": "Money making guide/Making ritual candles",
+      "row": 1,
+      "confidence": "mapped",
+      "inputSig": "55600+55635",
+      "outputItem": "greater ritual candle"
+    }
+  ],
+  "Runecrafting potion": [
+    {
+      "guide": "Money making guide/Making runecrafting potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "14856+43977",
+      "outputItem": "runecrafting potion (3)"
+    }
+  ],
+  "Spiritual prayer potion": [
+    {
+      "guide": "Money making guide/Making spiritual prayer potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "2434+12140+32843+48962",
+      "outputItem": "spiritual prayer potion (6)"
+    }
+  ],
+  "Steel Titan scroll (Steel of Legends)": [
+    {
+      "guide": "Money making guide/Making steel of legends scrolls during the Amlodd Voice of Seren",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "12790",
+      "outputItem": "steel titan scroll (steel of legends)"
+    }
+  ],
+  "Stone wall segment": [
+    {
+      "guide": "Money making guide/Making stone wall segments",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "3420",
+      "outputItem": "stone wall segment"
+    }
+  ],
+  "Summoning potion": [
+    {
+      "guide": "Money making guide/Making summoning potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "12109+12181",
+      "outputItem": "summoning potion (3)"
+    }
+  ],
+  "Super attack (Stealing Creation)": [
+    {
+      "guide": "Money making guide/Making super attack potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "10000496",
+      "outputItem": "super attack (4)"
+    }
+  ],
+  "Super runecrafting": [
+    {
+      "guide": "Money making guide/Making super runecrafting potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "43989+44055",
+      "outputItem": "super runecrafting (3)"
+    }
+  ],
+  "Super strength": [
+    {
+      "guide": "Money making guide/Making super strength potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "105+225",
+      "outputItem": "super strength (3)"
+    }
+  ],
+  "Torstol incense sticks": [
+    {
+      "guide": "Money making guide/Making torstol incense sticks",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "269+47698",
+      "outputItem": "torstol incense sticks"
+    }
+  ],
+  "Ultracompost": [
+    {
+      "guide": "Money making guide/Making ultracompost",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1925+10008738",
+      "outputItem": "ultracompost"
+    }
+  ],
+  "Avantoe potion (unfinished)": [
+    {
+      "guide": "Money making guide/Making unfinished avantoe potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "227+261",
+      "outputItem": "avantoe potion (unfinished)"
+    }
+  ],
+  "Fellstalk potion (unfinished)": [
+    {
+      "guide": "Money making guide/Making unfinished fellstalk potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "227+21624",
+      "outputItem": "fellstalk potion (unfinished)"
+    }
+  ],
+  "Irit potion (unfinished)": [
+    {
+      "guide": "Money making guide/Making unfinished irit potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "227+259",
+      "outputItem": "irit potion (unfinished)"
+    }
+  ],
+  "Kwuarm potion (unfinished)": [
+    {
+      "guide": "Money making guide/Making unfinished kwuarm potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "227+263",
+      "outputItem": "kwuarm potion (unfinished)"
+    }
+  ],
+  "Lantadyme potion (unfinished)": [
+    {
+      "guide": "Money making guide/Making unfinished lantadyme potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "227+2481",
+      "outputItem": "lantadyme potion (unfinished)"
+    }
+  ],
+  "Ranarr potion (unfinished)": [
+    {
+      "guide": "Money making guide/Making unfinished ranarr potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "227+257",
+      "outputItem": "ranarr potion (unfinished)"
+    }
+  ],
+  "Snapdragon potion (unfinished)": [
+    {
+      "guide": "Money making guide/Making unfinished snapdragon potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "227+3000",
+      "outputItem": "snapdragon potion (unfinished)"
+    }
+  ],
+  "Spirit weed potion (unfinished)": [
+    {
+      "guide": "Money making guide/Making unfinished spirit weed potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "227+12172",
+      "outputItem": "spirit weed potion (unfinished)"
+    }
+  ],
+  "Toadflax potion (unfinished)": [
+    {
+      "guide": "Money making guide/Making unfinished toadflax potions",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "227+2998",
+      "outputItem": "toadflax potion (unfinished)"
+    }
+  ],
+  "Weapon poison++": [
+    {
+      "guide": "Money making guide/Making weapon poison++",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "6018+10008965",
+      "outputItem": "weapon poison++ (3)"
+    }
+  ],
+  "Yew incense sticks": [
+    {
+      "guide": "Money making guide/Making yew incense sticks",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1515",
+      "outputItem": "yew incense sticks"
+    }
+  ],
+  "Clay": [
+    {
+      "guide": "Money making guide/Mining clay",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "clay"
+    }
+  ],
+  "Gold": [
+    {
+      "guide": "Money making guide/Mining concentrated gold rocks",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "gold ore"
+    }
+  ],
+  "Phasmatite": [
+    {
+      "guide": "Money making guide/Mining phasmatite ore",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "phasmatite"
+    }
+  ],
+  "Runite": [
+    {
+      "guide": "Money making guide/Mining runite ore",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "runite ore"
+    }
+  ],
+  "Plank": [
+    {
+      "guide": "Money making guide/Operating high capacity plank maker",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "plank"
+    }
+  ],
+  "Oak plank": [
+    {
+      "guide": "Money making guide/Operating high capacity plank maker",
+      "row": 1,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "oak plank"
+    }
+  ],
+  "Willow plank": [
+    {
+      "guide": "Money making guide/Operating high capacity plank maker",
+      "row": 2,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "willow plank"
+    }
+  ],
+  "Teak plank": [
+    {
+      "guide": "Money making guide/Operating high capacity plank maker",
+      "row": 3,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "teak plank"
+    }
+  ],
+  "Maple plank": [
+    {
+      "guide": "Money making guide/Operating high capacity plank maker",
+      "row": 4,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "maple plank"
+    }
+  ],
+  "Acadia plank": [
+    {
+      "guide": "Money making guide/Operating high capacity plank maker",
+      "row": 5,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "acadia plank"
+    }
+  ],
+  "Mahogany plank": [
+    {
+      "guide": "Money making guide/Operating high capacity plank maker",
+      "row": 6,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "mahogany plank"
+    }
+  ],
+  "Yew plank": [
+    {
+      "guide": "Money making guide/Operating high capacity plank maker",
+      "row": 7,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "yew plank"
+    }
+  ],
+  "Magic plank": [
+    {
+      "guide": "Money making guide/Operating high capacity plank maker",
+      "row": 8,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "magic plank"
+    }
+  ],
+  "Elder plank": [
+    {
+      "guide": "Money making guide/Operating high capacity plank maker",
+      "row": 9,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "elder plank"
+    }
+  ],
+  "Snakeskin": [
+    {
+      "guide": "Money making guide/Operating optimised hide tanner",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "snakeskin"
+    }
+  ],
+  "Red dragon leather": [
+    {
+      "guide": "Money making guide/Operating optimised hide tanner",
+      "row": 4,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "red dragon leather"
+    }
+  ],
+  "Undead dragon leather": [
+    {
+      "guide": "Money making guide/Operating optimised hide tanner",
+      "row": 7,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "undead dragon leather"
+    }
+  ],
+  "Dinosaur leather": [
+    {
+      "guide": "Money making guide/Operating optimised hide tanner",
+      "row": 8,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "dinosaur leather"
+    }
+  ],
+  "Ectoplasm": [
+    {
+      "guide": "Money making guide/Performing manifest ectoplasm rituals",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "10000047+10000141+10002848+10003806+10003807",
+      "outputItem": "ectoplasm"
+    }
+  ],
+  "Impure essence": [
+    {
+      "guide": "Money making guide/Performing Powerful essence rituals",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "7936+10000044+10000045+10000047",
+      "outputItem": "impure essence"
+    }
+  ],
+  "Adamant bar": [
+    {
+      "guide": "Money making guide/Smelting adamant bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "449+44820",
+      "outputItem": "adamant bar"
+    }
+  ],
+  "Bane bar": [
+    {
+      "guide": "Money making guide/Smelting bane bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "21778",
+      "outputItem": "bane bar"
+    }
+  ],
+  "Bronze bar": [
+    {
+      "guide": "Money making guide/Smelting bronze bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "436+438",
+      "outputItem": "bronze bar"
+    }
+  ],
+  "Elder rune bar": [
+    {
+      "guide": "Money making guide/Smelting elder rune bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "2363+44830+44832",
+      "outputItem": "elder rune bar"
+    }
+  ],
+  "Gold bar": [
+    {
+      "guide": "Money making guide/Smelting gold bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "444",
+      "outputItem": "gold bar"
+    }
+  ],
+  "Iron bar": [
+    {
+      "guide": "Money making guide/Smelting iron bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "440",
+      "outputItem": "iron bar"
+    }
+  ],
+  "Mithril bar": [
+    {
+      "guide": "Money making guide/Smelting mithril bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "447+453",
+      "outputItem": "mithril bar"
+    }
+  ],
+  "Necronium bar": [
+    {
+      "guide": "Money making guide/Smelting necronium bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "44826+44828",
+      "outputItem": "necronium bar"
+    }
+  ],
+  "Orikalkum bar": [
+    {
+      "guide": "Money making guide/Smelting orikalkum bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "44822+44824",
+      "outputItem": "orikalkum bar"
+    }
+  ],
+  "Primal bar": [
+    {
+      "guide": "Money making guide/Smelting primal bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "57175+57177+57179+57181+57183+57185+57187+57189+57191+57193",
+      "outputItem": "primal bar"
+    }
+  ],
+  "Silver bar": [
+    {
+      "guide": "Money making guide/Smelting silver bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "442",
+      "outputItem": "silver bar"
+    }
+  ],
+  "Steel bar": [
+    {
+      "guide": "Money making guide/Smelting steel bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "440+453",
+      "outputItem": "steel bar"
+    }
+  ],
+  "Adamant arrowheads": [
+    {
+      "guide": "Money making guide/Smithing adamant arrowheads",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "2361",
+      "outputItem": "adamant arrowheads"
+    }
+  ],
+  "Cannonball": [
+    {
+      "guide": "Money making guide/Smithing cannonballs",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "2353",
+      "outputItem": "cannonball"
+    }
+  ],
+  "Elder rune pickaxe + 5": [
+    {
+      "guide": "Money making guide/Smithing elder rune + 5 items",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "44844+45650",
+      "outputItem": "elder rune pickaxe + 5"
+    }
+  ],
+  "Elder rune round shield": [
+    {
+      "guide": "Money making guide/Smithing elder rune shields",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "44844",
+      "outputItem": "elder rune round shield"
+    }
+  ],
+  "Glorious bar": [
+    {
+      "guide": "Money making guide/Smithing glorious bars",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "10004668",
+      "outputItem": "glorious bar"
+    }
+  ],
+  "Mithril spear": [
+    {
+      "guide": "Money making guide/Smithing mithril spears",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1517+2359",
+      "outputItem": "mithril spear"
+    }
+  ],
+  "Rune arrowheads": [
+    {
+      "guide": "Money making guide/Smithing rune arrowheads",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "2363",
+      "outputItem": "rune arrowheads"
+    }
+  ],
+  "Rune bolts (unf)": [
+    {
+      "guide": "Money making guide/Smithing rune bolts (unf)",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "2363",
+      "outputItem": "rune bolts (unf)"
+    }
+  ],
+  "Rune dart tip": [
+    {
+      "guide": "Money making guide/Smithing rune dart tips",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "2363",
+      "outputItem": "rune dart tip"
+    }
+  ],
+  "Bowstring": [
+    {
+      "guide": "Money making guide/Spinning flax",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1779",
+      "outputItem": "bowstring"
+    }
+  ],
+  "Starbloom cloth": [
+    {
+      "guide": "Money making guide/Spinning starbloom flowers into cloth",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "59000",
+      "outputItem": "starbloom cloth"
+    }
+  ],
+  "Longbow": [
+    {
+      "guide": "Money making guide/Stringing longbows",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "48+1777",
+      "outputItem": "longbow"
+    }
+  ],
+  "Magic longbow": [
+    {
+      "guide": "Money making guide/Stringing magic longbows",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "70+1777",
+      "outputItem": "magic longbow"
+    }
+  ],
+  "Maple shortbow": [
+    {
+      "guide": "Money making guide/Stringing maple shortbows",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "64+1777",
+      "outputItem": "maple shortbow"
+    }
+  ],
+  "Oak longbow": [
+    {
+      "guide": "Money making guide/Stringing oak longbows",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "56+1777",
+      "outputItem": "oak longbow"
+    }
+  ],
+  "Oak shortbow": [
+    {
+      "guide": "Money making guide/Stringing oak shortbows",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "54+1777",
+      "outputItem": "oak shortbow"
+    }
+  ],
+  "Shortbow": [
+    {
+      "guide": "Money making guide/Stringing shortbows",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "50+1777",
+      "outputItem": "shortbow"
+    }
+  ],
+  "Willow longbow": [
+    {
+      "guide": "Money making guide/Stringing willow longbows",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "58+1777",
+      "outputItem": "willow longbow"
+    }
+  ],
+  "Yew longbow": [
+    {
+      "guide": "Money making guide/Stringing yew longbows",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "66+1777",
+      "outputItem": "yew longbow"
+    }
+  ],
+  "Yew shortbow": [
+    {
+      "guide": "Money making guide/Stringing yew shortbows",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "68+1777",
+      "outputItem": "yew shortbow"
+    }
+  ],
+  "Rune bar": [
+    {
+      "guide": "Money making guide/Superheating runite ore",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "451+44820",
+      "outputItem": "rune bar"
+    }
+  ],
+  "Leather": [
+    {
+      "guide": "Money making guide/Tanning cowhides into leather",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "1739",
+      "outputItem": "leather"
+    }
+  ],
+  "Green dragon leather": [
+    {
+      "guide": "Money making guide/Tanning hides",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "995+1753",
+      "outputItem": "green dragon leather"
+    }
+  ],
+  "Blue dragon leather": [
+    {
+      "guide": "Money making guide/Tanning hides",
+      "row": 1,
+      "confidence": "mapped",
+      "inputSig": "995+1751",
+      "outputItem": "blue dragon leather"
+    }
+  ],
+  "Black dragon leather": [
+    {
+      "guide": "Money making guide/Tanning hides",
+      "row": 2,
+      "confidence": "mapped",
+      "inputSig": "995+1747",
+      "outputItem": "black dragon leather"
+    }
+  ],
+  "Royal dragon leather": [
+    {
+      "guide": "Money making guide/Tanning royal dragonhide with Make Leather",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "995+24372",
+      "outputItem": "royal dragon leather"
+    }
+  ],
+  "Uncut onyx": [
+    {
+      "guide": "Money making guide/Transmuting onyx dust",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "uncut onyx"
+    }
+  ],
+  "Divine charge (empty)": [
+    {
+      "guide": "Money making guide/Using the auto disassembler mk. II to make empty divine charge",
+      "row": 0,
+      "confidence": "mapped",
+      "inputSig": "",
+      "outputItem": "divine charge (empty)"
+    }
+  ]
+}
