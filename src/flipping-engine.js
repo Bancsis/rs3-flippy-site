@@ -23,6 +23,12 @@ export const HIT_MIN_UNITS_PER_WINDOW = 1;
 export const QBUY_GRID = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5];
 export const QSELL_GRID = [0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95];
 
+// A narrower, more liquid part of the historical distribution. This is used
+// for the 'quicker' edge of the user-facing price range. The existing robust
+// optimiser is still retained as the patient/profit-seeking edge.
+export const BALANCED_BUY_GRID = [0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5];
+export const BALANCED_SELL_GRID = [0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8];
+
 export function sellTax(price, itemId) {
   if (itemId === BOND_ITEM_ID || price < 50) return 0;
   return Math.floor(price / 50);
@@ -374,19 +380,54 @@ export function analyzePlacements(items, series1h, series5m, opts) {
     }
 
     const buyLimit = item.buyLimit ?? FALLBACK_BUY_LIMIT;
-    const placement = optimizePlacement(points, {
+
+    // Keep two defensible placements rather than pretending one exact price is
+    // always correct:
+    // - patientPlacement: Pathfinder's robust/p25 choice, favouring dependable
+    //   margin across repeated 4-hour windows.
+    // - balancedPlacement: expected-profit choice restricted to the more liquid
+    //   centre of recent traded prices, favouring faster fills.
+    //
+    // The balanced placement drives GP/hour/risk; the two placements form the
+    // simple buy/sell ranges shown to the player.
+    const patientPlacement = optimizePlacement(points, {
       windowHours,
       nowSec: opts.nowSec,
       itemId: item.id,
       buyLimit,
       ...(opts.captureShare !== undefined ? { captureShare: opts.captureShare } : {}),
       ...(opts.minMargin !== undefined ? { minMargin: opts.minMargin } : {}),
-      ...(opts.objective !== undefined ? { objective: opts.objective } : {}),
+      objective: 'robust',
     });
+    const balancedPlacement = optimizePlacement(points, {
+      windowHours,
+      nowSec: opts.nowSec,
+      itemId: item.id,
+      buyLimit,
+      buyGrid: BALANCED_BUY_GRID,
+      sellGrid: BALANCED_SELL_GRID,
+      ...(opts.captureShare !== undefined ? { captureShare: opts.captureShare } : {}),
+      ...(opts.minMargin !== undefined ? { minMargin: opts.minMargin } : {}),
+      objective: 'ev',
+    });
+    const placement = balancedPlacement ?? patientPlacement;
     if (placement === null) continue;
 
     const band = computeBand(points, { windowHours, nowSec: opts.nowSec, itemId: item.id });
     if (!band) continue;
+
+    const patient = patientPlacement ?? placement;
+    const quicker = balancedPlacement ?? placement;
+    const priceRange = {
+      buyLow: Math.min(patient.buyAt, quicker.buyAt),
+      buyHigh: Math.max(patient.buyAt, quicker.buyAt),
+      sellLow: Math.min(patient.sellAt, quicker.sellAt),
+      sellHigh: Math.max(patient.sellAt, quicker.sellAt),
+      patientBuy: patient.buyAt,
+      patientSell: patient.sellAt,
+      quickerBuy: quicker.buyAt,
+      quickerSell: quicker.sellAt,
+    };
 
     const coverageStartSec = source === '5m' ? opts.coverage5mStartSec : opts.coverage1hStartSec;
     const consistency = measureConsistency(points, {
@@ -417,6 +458,9 @@ export function analyzePlacements(items, series1h, series5m, opts) {
       buyLimit: item.buyLimit ?? null,
       source,
       placement,
+      patientPlacement,
+      balancedPlacement,
+      priceRange,
       consistency,
       stabilityRatio: stabSd === null ? null : stabSd / Math.max(1, placement.marginPerItem),
       band,
@@ -456,6 +500,10 @@ export function scoreBandFlips(analyses, latest, opts) {
       : null;
 
     const gpPer4h = p.marginPerItem * qtyPer4h;
+    // User-facing GP/hour is the achievable profit for the current bankroll,
+    // reliable recent fill rate and GE limit, normalised over one 4-hour GE
+    // window. This is intentionally not an unlimited-capital theoretical rate.
+    const gpPerHour = gpPer4h / 4;
     const sustainedRatePerHour = Math.min(c.fillP25PairPerHour, limitCap / 4);
     const meanSustainedRatePerHour = Math.min(p.buyFillPerHour, p.sellFillPerHour, limitCap / 4);
     const limitBound = limitCap / 4 <= c.fillP25PairPerHour;
@@ -470,6 +518,10 @@ export function scoreBandFlips(analyses, latest, opts) {
       buyLimit: a.buyLimit,
       buyAt: p.buyAt,
       sellAt: p.sellAt,
+      buyRangeLow: a.priceRange?.buyLow ?? p.buyAt,
+      buyRangeHigh: a.priceRange?.buyHigh ?? p.buyAt,
+      sellRangeLow: a.priceRange?.sellLow ?? p.sellAt,
+      sellRangeHigh: a.priceRange?.sellHigh ?? p.sellAt,
       qBuy: p.qBuy,
       qSell: p.qSell,
       source: a.source,
@@ -489,7 +541,9 @@ export function scoreBandFlips(analyses, latest, opts) {
       binding,
       capitalRequired: p.buyAt * qtyPer4h,
       gpPer4h,
+      gpPerHour,
       adjustedGpPer4h: gpPer4h / stabilityDiscount,
+      adjustedGpPerHour: gpPerHour / stabilityDiscount,
       fillP25PairPerHour: c.fillP25PairPerHour,
       hitWindows: c.hitWindows,
       consistencyWindows: c.windows,
@@ -514,12 +568,10 @@ export function scoreBandFlips(analyses, latest, opts) {
     });
   }
 
-  const meanSlotRate = (x) =>
-    (x.marginPerItem * x.meanSustainedRatePerHour) / 2 / (1 + (x.stabilityRatio ?? 0));
   return out.sort(
     (a, b) =>
-      b.adjustedGpPerSlotHour - a.adjustedGpPerSlotHour ||
-      meanSlotRate(b) - meanSlotRate(a) ||
+      b.adjustedGpPerHour - a.adjustedGpPerHour ||
+      b.gpPerHour - a.gpPerHour ||
       a.id - b.id,
   );
 }

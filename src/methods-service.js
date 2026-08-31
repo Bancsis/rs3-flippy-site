@@ -425,17 +425,19 @@ export async function scoreMethods({ latest, volumes, oneHour, lastCompleteHour,
       selfSourceSecondsPerRun: score.selfSourceSecondsPerRun ?? 0,
       interactionSec: score.interactionSec,
       requirements: req,
-      requiredItems: score.inputChoices.map((c) => ({
-        name: c.itemName,
-        qty: c.qty,
-        source: c.mode === 'buy'
-          ? 'Buy on GE'
-          : `Self-source${c.acquisition?.summary ? ` — ${c.acquisition.summary}` : ''}`,
-        sourceMode: c.mode === 'buy' ? 'ge' : 'self',
-        gpPerUnit: c.gpPerUnit,
-        secPerUnit: c.secPerUnit ?? 0,
-        acquisition: c.acquisition ?? null,
-      })),
+      requiredItems: score.inputChoices
+        .filter((c) => String(c.itemName || '').trim().toLowerCase() !== 'coins')
+        .map((c) => ({
+          name: c.itemName,
+          qty: c.qty,
+          source: c.mode === 'buy'
+            ? 'Buy on GE'
+            : `Self-source${c.acquisition?.summary ? ` — ${c.acquisition.summary}` : ''}`,
+          sourceMode: c.mode === 'buy' ? 'ge' : 'self',
+          gpPerUnit: c.gpPerUnit,
+          secPerUnit: c.secPerUnit ?? 0,
+          acquisition: c.acquisition ?? null,
+        })),
       wikiPage: req.guide || score.page,
       requirementSkills: req.skills.map((x) => x.skill),
       confidence: score.confidence,
@@ -457,6 +459,7 @@ export async function scoreMethods({ latest, volumes, oneHour, lastCompleteHour,
 
 const CONFIDENCE_ORDER = { curated: 4, computed: 3, estimated: 2, theoretical: 1 };
 const PVM_SKILLS = ['Necromancy','Ranged','Magic','Attack','Strength','Slayer','Defence','Prayer','Constitution','Herblore','Summoning'];
+const PVM_STYLE_SKILLS = new Set(['Attack','Strength','Ranged','Magic','Necromancy']);
 
 function mmgCategory(raw) {
   const value = String(raw || '').toLowerCase();
@@ -736,19 +739,21 @@ function wikiDirectRows({ ds, mmg, latest, profile, geOnly, coveredPages, source
         selfSourceSecondsPerRun: 0,
         interactionSec: actionsPerMinute ? 60 / actionsPerMinute : null,
         requirements: req,
-        requiredItems: (row.inputs || []).map((x) => {
-          const live = liveSidePrice(x.name, 'buy', itemLookup, latest);
-          return {
-            name: cleanWikiText(x.name),
-            qty: Number(x.qty || 0),
-            qtyIsPerHour: x.isph === true,
-            source: live !== null ? 'Buy on GE' : 'Wiki-calculated / non-GE input',
-            sourceMode: live !== null ? 'ge' : 'wiki',
-            gpPerUnit: live !== null ? live : Number(x.value || 0),
-            secPerUnit: 0,
-            acquisition: null,
-          };
-        }),
+        requiredItems: (row.inputs || [])
+          .filter((x) => cleanWikiText(x.name).toLowerCase() !== 'coins')
+          .map((x) => {
+            const live = liveSidePrice(x.name, 'buy', itemLookup, latest);
+            return {
+              name: cleanWikiText(x.name),
+              qty: Number(x.qty || 0),
+              qtyIsPerHour: x.isph === true,
+              source: live !== null ? 'Buy on GE' : 'Wiki-calculated / non-GE input',
+              sourceMode: live !== null ? 'ge' : 'wiki',
+              gpPerUnit: live !== null ? live : Number(x.value || 0),
+              secPerUnit: 0,
+              acquisition: null,
+            };
+          }),
         wikiPage: page,
         bossPage: category === 'PvM' ? bossPageFromActivity(row) : null,
         requirementSkills: req.skills.map((x) => x.skill),
@@ -794,8 +799,85 @@ function neutralRequirements(req) {
   return parts.length ? parts.join(' • ') : 'No level requirement';
 }
 
+function recommendedLabel(req) {
+  const parts = [
+    ...(req?.recommendedSkills ?? []).map((r) => `${r.level}+ ${r.skill}`),
+    ...(req?.recommendedQuests ?? []).map((q) => q),
+  ];
+  return parts.join(', ');
+}
+
+function practicalSkillAssessment(row, profile) {
+  const recs = row.requirements?.recommendedSkills ?? [];
+  if (!profile?.skills || recs.length === 0) return { known: !!profile?.skills, unmet: [] };
+
+  const levels = profile.skills;
+  const unmet = [];
+  const styleRecs = row.category === 'PvM' ? recs.filter((r) => PVM_STYLE_SKILLS.has(r.skill)) : [];
+  const supportRecs = row.category === 'PvM' ? recs.filter((r) => !PVM_STYLE_SKILLS.has(r.skill)) : recs;
+
+  // Wiki PvM rows often list several combat styles as alternatives. Requiring
+  // Attack, Ranged, Magic and Necromancy simultaneously would make practical
+  // eligibility far too strict. Treat each style as an option; melee uses both
+  // Attack and Strength when both are listed.
+  if (styleRecs.length) {
+    const bySkill = new Map(styleRecs.map((r) => [r.skill, Number(r.level || 1)]));
+    const options = [];
+    if (bySkill.has('Attack') || bySkill.has('Strength')) {
+      const melee = [];
+      if (bySkill.has('Attack')) melee.push({ skill: 'Attack', level: bySkill.get('Attack') });
+      if (bySkill.has('Strength')) melee.push({ skill: 'Strength', level: bySkill.get('Strength') });
+      options.push(melee);
+    }
+    for (const skill of ['Ranged','Magic','Necromancy']) {
+      if (bySkill.has(skill)) options.push([{ skill, level: bySkill.get(skill) }]);
+    }
+
+    const optionPasses = (option) => option.every((r) => Number(levels[r.skill] ?? 1) >= r.level);
+    if (options.length === 1) {
+      for (const r of options[0]) {
+        if (Number(levels[r.skill] ?? 1) < r.level) unmet.push(`${r.level}+ ${r.skill}`);
+      }
+    } else if (options.length > 1 && !options.some(optionPasses)) {
+      const label = options
+        .map((option) => option.map((r) => `${r.level}+ ${r.skill}`).join(' + '))
+        .join(' or ');
+      unmet.push(label);
+    }
+  }
+
+  for (const r of supportRecs) {
+    const have = Number(levels[r.skill] ?? 1);
+    if (have < Number(r.level ?? 1)) unmet.push(`${r.level}+ ${r.skill}`);
+  }
+
+  // Only evaluate recommended quests when the lookup actually supplied quest
+  // completion data. The browser HiScores lookup provides levels only.
+  if (Array.isArray(profile.quests)) {
+    const completed = new Set(profile.quests);
+    for (const q of row.requirements?.recommendedQuests ?? []) {
+      if (!completed.has(q)) unmet.push(q);
+    }
+  }
+
+  return { known: true, unmet };
+}
+
 export function evaluateEligibility(row, profile) {
-  if (!profile?.skills) return { known: false, eligible: null, unmet: [], requirementsText: neutralRequirements(row.requirements) };
+  if (!profile?.skills) {
+    return {
+      known: false,
+      eligible: null,
+      technicalEligible: null,
+      practicalEligible: null,
+      status: 'unknown',
+      unmet: [],
+      practicalUnmet: [],
+      requirementsText: neutralRequirements(row.requirements),
+      recommendedText: recommendedLabel(row.requirements),
+    };
+  }
+
   const unmetSkills = [];
   const unmetQuests = [];
   for (const r of row.requirements.skills ?? []) {
@@ -806,8 +888,27 @@ export function evaluateEligibility(row, profile) {
     const completed = new Set(profile.quests);
     for (const q of row.requirements.quests ?? []) if (!completed.has(q)) unmetQuests.push(`${q} required`);
   }
+
   const unmet = [...unmetSkills, ...unmetQuests];
-  return { known: true, eligible: unmet.length === 0, unmet, requirementsText: unmet.length ? unmet.join(' • ') : neutralRequirements(row.requirements) };
+  const technicalEligible = unmet.length === 0;
+  const practical = technicalEligible
+    ? practicalSkillAssessment(row, profile)
+    : { known: true, unmet: [] };
+  const practicalEligible = technicalEligible && practical.unmet.length === 0;
+  const status = !technicalEligible ? 'ineligible' : practicalEligible ? 'eligible' : 'technical';
+
+  return {
+    known: true,
+    // Keep the legacy field for compatibility; it means literal/hard access.
+    eligible: technicalEligible,
+    technicalEligible,
+    practicalEligible,
+    status,
+    unmet,
+    practicalUnmet: practical.unmet,
+    requirementsText: unmet.length ? unmet.join(' • ') : neutralRequirements(row.requirements),
+    recommendedText: recommendedLabel(row.requirements),
+  };
 }
 
 export async function getMethodRows(args) {

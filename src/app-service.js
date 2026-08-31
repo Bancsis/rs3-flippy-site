@@ -2,7 +2,6 @@ import { scoreBandFlips, riskForCandidate } from './flipping-engine.js';
 import { getAnalyses, getHistoryStatus, getLiveData, mostRecentCompleteHour, restartHistoryRefresh } from './price-service.js';
 import { getMethodRows, SKILLS } from './methods-service.js';
 import { lookupPlayer } from './player-service.js';
-import { getBossDrops } from './wiki-service.js';
 
 export { SKILLS };
 
@@ -24,8 +23,10 @@ export async function loadFlips({ bankroll, minVolume = 0, force = false }) {
       members: candidate.members,
       buy: candidate.buyAt,
       sell: candidate.sellAt,
+      buyRange: { low: candidate.buyRangeLow, high: candidate.buyRangeHigh },
+      sellRange: { low: candidate.sellRangeLow, high: candidate.sellRangeHigh },
       profitEach: candidate.marginPerItem,
-      profitPer4h: candidate.gpPer4h,
+      profitPerHour: candidate.gpPerHour,
       geLimit: candidate.buyLimit,
       youCanAfford: Math.floor(bankroll / candidate.buyAt),
       volume: Number(live.volumes[String(candidate.id)] || 0),
@@ -68,8 +69,13 @@ export async function loadMethods({ profile = null, geOnly = false, force = fals
     const analysis = row.primaryGeId !== null ? analyses.get(row.primaryGeId) : null;
     return {
       ...row,
-      patientSell: analysis?.placement?.sellAt ?? null,
-      patientSellSource: analysis ? `${analysis.source} history / 24h placement` : null,
+      sellRange: analysis
+        ? {
+            low: analysis.priceRange?.sellLow ?? analysis.placement?.sellAt ?? null,
+            high: analysis.priceRange?.sellHigh ?? analysis.placement?.sellAt ?? null,
+          }
+        : null,
+      sellRangeSource: analysis ? `${analysis.source} history / recent traded-price range` : null,
     };
   });
   return { ...result, rows, skills: SKILLS, updatedAt: Date.now() };
@@ -77,9 +83,4 @@ export async function loadMethods({ profile = null, geOnly = false, force = fals
 
 export async function lookupPlayerBrowser(name) {
   return lookupPlayer(name);
-}
-
-export async function loadBossDrops({ page, method = '' }) {
-  if (!page) throw new Error('Missing boss page.');
-  return getBossDrops(page, method);
 }
