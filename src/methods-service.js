@@ -326,6 +326,16 @@ function buildAllowedActions(ds, mmg, sourceMap, profile) {
       const have = Number(profile.skills[r.skill] ?? 1);
       if (have < Number(r.level ?? 1)) { ok = false; break; }
     }
+    // A self-source/acquisition action that needs a quest must not be assumed
+    // available when the browser lookup cannot verify quest completion. If the
+    // item is tradeable the frontier can still fall back to buying it on the GE.
+    if (ok && (req.quests ?? []).length) {
+      if (!Array.isArray(profile.quests)) ok = false;
+      else {
+        const completed = new Set(profile.quests);
+        if ((req.quests ?? []).some((q) => !completed.has(q))) ok = false;
+      }
+    }
     if (ok) allowed.add(action.idx);
   }
   return allowed;
@@ -816,10 +826,8 @@ function practicalSkillAssessment(row, profile) {
   const styleRecs = row.category === 'PvM' ? recs.filter((r) => PVM_STYLE_SKILLS.has(r.skill)) : [];
   const supportRecs = row.category === 'PvM' ? recs.filter((r) => !PVM_STYLE_SKILLS.has(r.skill)) : recs;
 
-  // Wiki PvM rows often list several combat styles as alternatives. Requiring
-  // Attack, Ranged, Magic and Necromancy simultaneously would make practical
-  // eligibility far too strict. Treat each style as an option; melee uses both
-  // Attack and Strength when both are listed.
+  // Combat styles are alternatives. A Ranged-ready character should not fail
+  // because their Magic or melee stats are below an alternative recommendation.
   if (styleRecs.length) {
     const bySkill = new Map(styleRecs.map((r) => [r.skill, Number(r.level || 1)]));
     const options = [];
@@ -851,8 +859,8 @@ function practicalSkillAssessment(row, profile) {
     if (have < Number(r.level ?? 1)) unmet.push(`${r.level}+ ${r.skill}`);
   }
 
-  // Only evaluate recommended quests when the lookup actually supplied quest
-  // completion data. The browser HiScores lookup provides levels only.
+  // Recommended quests affect practical readiness only when quest completion is
+  // actually available. Unknown quest state is handled as confidence below.
   if (Array.isArray(profile.quests)) {
     const completed = new Set(profile.quests);
     for (const q of row.requirements?.recommendedQuests ?? []) {
@@ -863,51 +871,118 @@ function practicalSkillAssessment(row, profile) {
   return { known: true, unmet };
 }
 
-export function evaluateEligibility(row, profile) {
+const GATHERING_SKILLS = new Set(['Mining','Woodcutting','Fishing','Hunter','Farming','Divination','Archaeology']);
+
+function shortReadinessSummary(row, unmet, practicalUnmet, unverified) {
+  if (unmet.length || practicalUnmet.length) {
+    const details = practicalUnmet.length ? practicalUnmet : unmet;
+    const recSkills = row.requirements?.recommendedSkills ?? [];
+    const gathering = recSkills.filter((r) => GATHERING_SKILLS.has(r.skill));
+    const combat = recSkills.filter((r) => PVM_SKILLS.includes(r.skill));
+    if (gathering.length >= 3) {
+      const min = Math.min(...gathering.map((r) => Number(r.level || 1)));
+      return `${min}+ gathering skills`;
+    }
+    if (row.category === 'PvM' && combat.length >= 3) return 'High-level combat recommended';
+    return `${details.slice(0, 2).join(' • ')}${details.length > 2 ? ` • +${details.length - 2} more` : ''}`;
+  }
+  if (unverified.length) return 'Quest / unlock not verified';
+
+  const req = row.requirements ?? {};
+  if ((req.skills ?? []).length === 1 && !(req.quests ?? []).length && !(req.items ?? []).length) {
+    const r = req.skills[0];
+    return `${r.skill} ${r.level}`;
+  }
+  if ((req.skills ?? []).length > 1) {
+    const gathering = req.skills.filter((r) => GATHERING_SKILLS.has(r.skill));
+    if (gathering.length >= 3) {
+      const min = Math.min(...gathering.map((r) => Number(r.level || 1)));
+      return `${min}+ gathering skills`;
+    }
+    if (row.category === 'PvM') return 'Combat requirements';
+    return `${req.skills.slice(0, 2).map((r) => `${r.skill} ${r.level}`).join(' • ')}${req.skills.length > 2 ? ` • +${req.skills.length - 2} more` : ''}`;
+  }
+  if ((req.quests ?? []).length || (req.items ?? []).length) return 'Quest / unlock requirement';
+  return 'No level requirement';
+}
+
+function accessItemUncertainty(req, itemLookup) {
+  const out = [];
+  for (const itemName of req?.items ?? []) {
+    const item = itemLookup?.get(String(itemName || '').trim().toLowerCase());
+    // Ordinary tradeable tools/items can be acquired before starting the method;
+    // non-tradeable or unknown special items/access objects cannot be confirmed.
+    if (!item || item.tradeable !== true) out.push(`${itemName} possession/access not verified`);
+  }
+  return out;
+}
+
+export function evaluateEligibility(row, profile, itemLookup = null) {
   if (!profile?.skills) {
     return {
       known: false,
-      eligible: null,
-      technicalEligible: null,
-      practicalEligible: null,
+      eligible: false,
+      confirmedEligible: false,
+      practicalEligible: false,
       status: 'unknown',
       unmet: [],
       practicalUnmet: [],
+      unverified: [],
       requirementsText: neutralRequirements(row.requirements),
       recommendedText: recommendedLabel(row.requirements),
+      summary: 'Load character levels to check readiness',
     };
   }
 
   const unmetSkills = [];
   const unmetQuests = [];
+  const unverified = [];
   for (const r of row.requirements.skills ?? []) {
     const have = Number(profile.skills[r.skill] ?? 1);
     if (have < r.level) unmetSkills.push(`${r.skill} ${r.level} required`);
   }
-  if (Array.isArray(profile.quests)) {
-    const completed = new Set(profile.quests);
-    for (const q of row.requirements.quests ?? []) if (!completed.has(q)) unmetQuests.push(`${q} required`);
+
+  const requiredQuests = row.requirements.quests ?? [];
+  if (requiredQuests.length) {
+    if (Array.isArray(profile.quests)) {
+      const completed = new Set(profile.quests);
+      for (const q of requiredQuests) if (!completed.has(q)) unmetQuests.push(`${q} required`);
+    } else {
+      unverified.push(...requiredQuests.map((q) => `${q} completion not verified`));
+    }
   }
 
+  unverified.push(...accessItemUncertainty(row.requirements, itemLookup));
+
   const unmet = [...unmetSkills, ...unmetQuests];
-  const technicalEligible = unmet.length === 0;
-  const practical = technicalEligible
+  const practical = unmet.length === 0
     ? practicalSkillAssessment(row, profile)
     : { known: true, unmet: [] };
-  const practicalEligible = technicalEligible && practical.unmet.length === 0;
-  const status = !technicalEligible ? 'ineligible' : practicalEligible ? 'eligible' : 'technical';
+  const practicalUnmet = practical.unmet ?? [];
+
+  // If a recommended quest exists but the browser player lookup has no quest
+  // completion data, keep the method discoverable but do not call it confirmed.
+  if (!Array.isArray(profile.quests) && (row.requirements?.recommendedQuests ?? []).length) {
+    unverified.push('Recommended quest/unlock completion not verified');
+  }
+
+  const uniqueUnverified = [...new Set(unverified)];
+  const notReady = unmet.length > 0 || practicalUnmet.length > 0;
+  const status = notReady ? 'not_ready' : uniqueUnverified.length ? 'potential' : 'eligible';
+  const confirmedEligible = status === 'eligible';
 
   return {
     known: true,
-    // Keep the legacy field for compatibility; it means literal/hard access.
-    eligible: technicalEligible,
-    technicalEligible,
-    practicalEligible,
+    eligible: confirmedEligible,
+    confirmedEligible,
+    practicalEligible: confirmedEligible,
     status,
     unmet,
-    practicalUnmet: practical.unmet,
+    practicalUnmet,
+    unverified: uniqueUnverified,
     requirementsText: unmet.length ? unmet.join(' • ') : neutralRequirements(row.requirements),
     recommendedText: recommendedLabel(row.requirements),
+    summary: shortReadinessSummary(row, unmet, practicalUnmet, uniqueUnverified),
   };
 }
 
@@ -918,8 +993,9 @@ export async function getMethodRows(args) {
   const wikiRows = wikiDirectRows({
     ds, mmg, latest: args.latest, profile: args.profile, geOnly: args.geOnly, coveredPages, sourceMap,
   });
+  const itemLookup = buildItemNameLookup(ds);
   const rows = [...pathRows, ...wikiRows]
-    .map((row) => ({ ...row, eligibility: evaluateEligibility(row, args.profile) }))
+    .map((row) => ({ ...row, eligibility: evaluateEligibility(row, args.profile, itemLookup) }))
     .sort((a,b) => b.gpPerHour - a.gpPerHour);
   return { ...scored, rows, requirementsSource: mmg.source, methodCount: rows.length };
 }

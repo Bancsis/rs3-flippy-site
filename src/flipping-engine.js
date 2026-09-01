@@ -215,6 +215,7 @@ export function measureConsistency(points, opts) {
   const { low, high } = buildSubSides(points, K, subHours, opts.nowSec);
 
   const pairFillsPerWindow = [];
+  const resolvedPairFillsPerHour = [];
   let hitWindows = 0;
   let windowsResolved = 0;
   for (let k = 0; k < K; k++) {
@@ -222,13 +223,32 @@ export function measureConsistency(points, opts) {
       buyUnitsIn(low[k] ?? null, opts.buyAt, captureShare),
       sellUnitsIn(high[k] ?? null, opts.sellAt, captureShare),
     );
-    pairFillsPerWindow.push(pairUnits / subHours);
-    if (pairUnits >= HIT_MIN_UNITS_PER_WINDOW) hitWindows++;
-    if (opts.nowSec - (k + 1) * subSec >= coverageStart) windowsResolved++;
+    const rate = pairUnits / subHours;
+    pairFillsPerWindow.push(rate);
+
+    // A browser on its first visit initially has only a few hours of history.
+    // Older, not-yet-downloaded windows are UNKNOWN, not zero-volume windows.
+    // Only fully covered windows are allowed into consistency quantiles.
+    const resolved = opts.nowSec - (k + 1) * subSec >= coverageStart;
+    if (resolved) {
+      windowsResolved++;
+      resolvedPairFillsPerHour.push(rate);
+      if (pairUnits >= HIT_MIN_UNITS_PER_WINDOW) hitWindows++;
+    }
   }
+
+  const fillP25PairPerHour = resolvedPairFillsPerHour.length
+    ? lowQuantile(resolvedPairFillsPerHour, CONSISTENCY_QUANTILE)
+    : null;
+  const meanPairFillPerHour = resolvedPairFillsPerHour.length
+    ? resolvedPairFillsPerHour.reduce((a, b) => a + b, 0) / resolvedPairFillsPerHour.length
+    : null;
+
   return {
     pairFillsPerWindow,
-    fillP25PairPerHour: lowQuantile(pairFillsPerWindow, CONSISTENCY_QUANTILE),
+    resolvedPairFillsPerHour,
+    fillP25PairPerHour,
+    meanPairFillPerHour,
     hitWindows,
     windowsResolved,
     windows: K,
@@ -481,12 +501,36 @@ export function scoreBandFlips(analyses, latest, opts) {
   for (const a of analyses.values()) {
     const p = a.placement;
     const c = a.consistency;
-    const fillableQty4h = Math.floor(4 * c.fillP25PairPerHour);
     const limitCap = a.buyLimit ?? FALLBACK_BUY_LIMIT;
     const capitalCap = opts.bankroll !== undefined ? Math.floor(opts.bankroll / p.buyAt) : Infinity;
     if (capitalCap < 1) continue;
-    const qtyPer4h = Math.floor(Math.min(limitCap, fillableQty4h, capitalCap));
-    const binding = qtyPer4h >= limitCap ? 'limit' : qtyPer4h >= fillableQty4h ? 'volume' : 'capital';
+
+    // V9: GP/hour is an EXPECTED throughput calculation. The p25 consistency
+    // figure remains valuable for risk, but it is deliberately not a hard gate
+    // on profitability. Previously floor(4 * p25) made any rate below one whole
+    // item per four hours become zero, and missing browser-history windows also
+    // entered the p25 calculation as zeros.
+    const placementRate = Number.isFinite(Number(p.fillPerHour)) && Number(p.fillPerHour) > 0
+      ? Number(p.fillPerHour)
+      : null;
+    const resolvedMeanRate = Number.isFinite(Number(c.meanPairFillPerHour)) && Number(c.meanPairFillPerHour) > 0
+      ? Number(c.meanPairFillPerHour)
+      : null;
+    const marketRates = [placementRate, resolvedMeanRate].filter((x) => x !== null);
+    const marketRatePerHour = marketRates.length ? Math.min(...marketRates) : null;
+    const limitRatePerHour = limitCap / 4;
+    const capitalRatePerHour = capitalCap / 4;
+    const effectiveRatePerHour = marketRatePerHour === null
+      ? null
+      : Math.min(marketRatePerHour, limitRatePerHour, capitalRatePerHour);
+
+    let binding = 'unknown';
+    if (effectiveRatePerHour !== null) {
+      const eps = 1e-9;
+      if (Math.abs(effectiveRatePerHour - capitalRatePerHour) <= eps) binding = 'capital';
+      else if (Math.abs(effectiveRatePerHour - limitRatePerHour) <= eps) binding = 'limit';
+      else binding = 'volume';
+    }
 
     const q = latest[String(a.id)];
     const low = typeof q?.low === 'number' && q.low > 0 ? q.low : null;
@@ -499,17 +543,31 @@ export function scoreBandFlips(analyses, latest, opts) {
         : 0.5
       : null;
 
-    const gpPer4h = p.marginPerItem * qtyPer4h;
-    // User-facing GP/hour is the achievable profit for the current bankroll,
-    // reliable recent fill rate and GE limit, normalised over one 4-hour GE
-    // window. This is intentionally not an unlimited-capital theoretical rate.
-    const gpPerHour = gpPer4h / 4;
-    const sustainedRatePerHour = Math.min(c.fillP25PairPerHour, limitCap / 4);
-    const meanSustainedRatePerHour = Math.min(p.buyFillPerHour, p.sellFillPerHour, limitCap / 4);
-    const limitBound = limitCap / 4 <= c.fillP25PairPerHour;
+    const qtyPer4h = effectiveRatePerHour === null ? null : effectiveRatePerHour * 4;
+    const fillableQty4h = marketRatePerHour === null ? null : marketRatePerHour * 4;
+    const gpPerHour = effectiveRatePerHour !== null && effectiveRatePerHour > 0
+      ? p.marginPerItem * effectiveRatePerHour
+      : null;
+    const gpPer4h = gpPerHour === null ? null : gpPerHour * 4;
+    const robustRate = Number.isFinite(Number(c.fillP25PairPerHour)) && Number(c.fillP25PairPerHour) > 0
+      ? Number(c.fillP25PairPerHour)
+      : null;
+    const sustainedRatePerHour = effectiveRatePerHour ?? 0;
+    const meanSustainedRatePerHour = Math.min(
+      p.buyFillPerHour,
+      p.sellFillPerHour,
+      limitRatePerHour,
+      capitalRatePerHour,
+    );
+    const limitBound = effectiveRatePerHour !== null && limitRatePerHour <= marketRatePerHour;
     const gpPerSlotHour = (p.marginPerItem * sustainedRatePerHour) / 2;
     const stabilityDiscount = 1 + (a.stabilityRatio ?? 0);
     const marginPct = p.marginPerItem / p.buyAt;
+    const fillEstimateSource = resolvedMeanRate !== null
+      ? 'recent resolved windows + placement flow'
+      : placementRate !== null
+        ? 'placement-flow fallback'
+        : 'unavailable';
 
     out.push({
       id: a.id,
@@ -536,15 +594,20 @@ export function scoreBandFlips(analyses, latest, opts) {
       buyFillPerHour: p.buyFillPerHour,
       sellFillPerHour: p.sellFillPerHour,
       fillPerHour: p.fillPerHour,
+      marketRatePerHour,
+      effectiveRatePerHour,
+      fillEstimateSource,
       fillableQty4h,
       qtyPer4h,
       binding,
-      capitalRequired: p.buyAt * qtyPer4h,
+      capitalRequired: qtyPer4h === null ? null : p.buyAt * qtyPer4h,
       gpPer4h,
       gpPerHour,
-      adjustedGpPer4h: gpPer4h / stabilityDiscount,
-      adjustedGpPerHour: gpPerHour / stabilityDiscount,
+      adjustedGpPer4h: gpPer4h === null ? null : gpPer4h / stabilityDiscount,
+      adjustedGpPerHour: gpPerHour === null ? null : gpPerHour / stabilityDiscount,
       fillP25PairPerHour: c.fillP25PairPerHour,
+      meanPairFillPerHour: c.meanPairFillPerHour,
+      robustRatePerHour: robustRate,
       hitWindows: c.hitWindows,
       consistencyWindows: c.windows,
       windowsResolved: c.windowsResolved,
@@ -555,12 +618,14 @@ export function scoreBandFlips(analyses, latest, opts) {
       capitalEfficiency: marginPct / stabilityDiscount,
       pairCapitalPer4h: 2 * p.buyAt * 4 * sustainedRatePerHour,
       cycleHoursBatch:
-        p.buyFillPerHour > 0 && p.sellFillPerHour > 0
+        qtyPer4h !== null && p.buyFillPerHour > 0 && p.sellFillPerHour > 0
           ? qtyPer4h / p.buyFillPerHour + qtyPer4h / p.sellFillPerHour
           : Infinity,
       limitBound,
       stabilityRatio: a.stabilityRatio,
-      estFillMinutes: p.fillPerHour > 0 ? (qtyPer4h / p.fillPerHour) * 60 : Infinity,
+      estFillMinutes: effectiveRatePerHour !== null && effectiveRatePerHour > 0
+        ? 60 / effectiveRatePerHour
+        : Infinity,
       trend: a.trend,
       trendPct: a.trendPct,
       position,
@@ -568,10 +633,11 @@ export function scoreBandFlips(analyses, latest, opts) {
     });
   }
 
+  const sortable = (x) => Number.isFinite(Number(x)) ? Number(x) : -Infinity;
   return out.sort(
     (a, b) =>
-      b.adjustedGpPerHour - a.adjustedGpPerHour ||
-      b.gpPerHour - a.gpPerHour ||
+      sortable(b.adjustedGpPerHour) - sortable(a.adjustedGpPerHour) ||
+      sortable(b.gpPerHour) - sortable(a.gpPerHour) ||
       a.id - b.id,
   );
 }
@@ -586,21 +652,26 @@ export function scoreBandFlips(analyses, latest, opts) {
  */
 export function riskForCandidate(c) {
   const reasons = [];
-  const fullCoverage = c.windowsResolved >= c.consistencyWindows;
+  const resolved = Math.max(0, Number(c.windowsResolved || 0));
+  const total = Math.max(1, Number(c.consistencyWindows || 1));
+  const fullCoverage = resolved >= total;
+  const hitRatio = resolved > 0 ? c.hitWindows / resolved : null;
+  const enoughConsistency = resolved >= 3;
   const choppy = c.stabilityRatio !== null && c.stabilityRatio >= 0.5;
   const mixed = c.stabilityRatio !== null && c.stabilityRatio >= 0.15;
-  const poorConsistency = c.hitWindows < 8;
-  const goodConsistency = c.hitWindows >= 11;
-  const noRobustFlow = c.fillP25PairPerHour <= 0;
+  const poorConsistency = enoughConsistency && hitRatio !== null && hitRatio < 2 / 3;
+  const goodConsistency = enoughConsistency && hitRatio !== null && hitRatio >= 0.9;
+  const robustKnown = Number.isFinite(Number(c.fillP25PairPerHour));
+  const noRobustFlow = enoughConsistency && robustKnown && Number(c.fillP25PairPerHour) <= 0;
 
-  if (!fullCoverage) reasons.push(`only ${c.windowsResolved}/${c.consistencyWindows} consistency windows have history`);
-  if (poorConsistency) reasons.push(`only ${c.hitWindows}/${c.consistencyWindows} recent 4h windows filled on both sides`);
-  else if (!goodConsistency) reasons.push(`${c.hitWindows}/${c.consistencyWindows} recent 4h windows filled on both sides`);
+  if (!fullCoverage) reasons.push(`consistency history is still building (${resolved}/${total} full 4h windows available)`);
+  if (poorConsistency) reasons.push('recent full windows have inconsistent two-sided fills');
+  else if (enoughConsistency && !goodConsistency) reasons.push('some recent full windows did not fill on both sides');
   if (c.stabilityRatio === null) reasons.push('not enough history to judge price stability');
-  else if (choppy) reasons.push(`price floor is choppy (${c.stabilityRatio.toFixed(2)}× the margin)`);
-  else if (mixed) reasons.push(`price floor has mixed stability (${c.stabilityRatio.toFixed(2)}× the margin)`);
-  if (c.trend === 'rising') reasons.push('historical price band is trending upward');
-  else if (c.trend === 'falling') reasons.push('historical price band is trending downward');
+  else if (choppy) reasons.push('recent prices have been choppy');
+  else if (mixed) reasons.push('recent prices have had mixed stability');
+  if (c.trend === 'rising') reasons.push('the broader price range is trending upward');
+  else if (c.trend === 'falling') reasons.push('the broader price range is trending downward');
   else if (c.trend === 'unknown') reasons.push('not enough hourly history to judge the longer trend');
   if (c.buyLimit === null) reasons.push('GE limit is unknown; the model conservatively uses 100');
 
@@ -619,6 +690,6 @@ export function riskForCandidate(c) {
     risk = 'green';
   }
 
-  if (reasons.length === 0) reasons.push('consistent fills, steady price floor and steady longer trend');
+  if (reasons.length === 0) reasons.push('recent trading has been consistent and prices have been steady');
   return { risk, reasons };
 }
