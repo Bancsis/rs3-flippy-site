@@ -2,6 +2,7 @@ import { scoreBandFlips, riskForCandidate } from './flipping-engine.js';
 import { getAnalyses, getHistoryStatus, getLiveData, mostRecentCompleteHour, restartHistoryRefresh } from './price-service.js';
 import { getMethodRows, SKILLS } from './methods-service.js';
 import { lookupPlayer } from './player-service.js';
+import { getQuestDataset } from './quest-service.js';
 
 export { SKILLS };
 
@@ -85,4 +86,14 @@ export async function loadMethods({ profile = null, geOnly = false, force = fals
 
 export async function lookupPlayerBrowser(name) {
   return lookupPlayer(name);
+}
+
+export async function loadQuestItems({ force = false } = {}) {
+  const [dataset, live] = await Promise.all([getQuestDataset(), getLiveData(force)]);
+  return {
+    quests: dataset.quests,
+    datasetMeta: { generatedAt: dataset.generatedAt, sources: dataset.sources, counts: dataset.counts },
+    prices: live.latest,
+    updatedAt: Date.now(),
+  };
 }

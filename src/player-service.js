@@ -1,4 +1,5 @@
 const WIKI_API = 'https://runescape.wiki/api.php';
+const WIKI_RUNEMETRICS_QUESTS = 'https://runescape.wiki/cors/m=runemetrics/quests?user=';
 
 const SKILLS = [
   'Attack','Defence','Strength','Constitution','Ranged','Prayer','Magic','Cooking',
@@ -100,9 +101,80 @@ async function lookupViaWikiHiscores(name) {
   const { levels, unrankedSkills } = parseAggregateHiscores(expanded);
   return {
     levels,
-    quests: null,
     source: 'RuneScape Wiki HiScores',
     unrankedSkills,
+  };
+}
+
+function normaliseQuestName(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/_/g, ' ')
+    .replace(/\((?:mini)?quest\)|\(saga\)|\(minigame\)/g, '')
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '');
+}
+
+function parseQuestList(rawQuests) {
+  const questStatuses = {};
+  const completed = [];
+  if (!Array.isArray(rawQuests)) return { quests: null, questStatuses: null };
+  for (const raw of rawQuests) {
+    if (typeof raw === 'string') {
+      const key = normaliseQuestName(raw);
+      if (key) { questStatuses[key] = { status: 'COMPLETED', title: raw }; completed.push(raw); }
+      continue;
+    }
+    const title = String(raw?.title || raw?.name || '').trim();
+    const status = String(raw?.status || '').toUpperCase();
+    const key = normaliseQuestName(title);
+    if (!key || !status) continue;
+    questStatuses[key] = {
+      status,
+      title,
+      questPoints: Number(raw?.questPoints || 0) || 0,
+      eligible: raw?.userEligible ?? raw?.eligible ?? null,
+    };
+    if (status === 'COMPLETED') completed.push(title);
+  }
+  return Object.keys(questStatuses).length
+    ? { quests: completed, questStatuses }
+    : { quests: null, questStatuses: null };
+}
+
+async function lookupViaWikiRuneMetrics(name) {
+  const body = await fetchJson(`${WIKI_RUNEMETRICS_QUESTS}${encodeURIComponent(name)}`);
+  const parsed = parseQuestList(body?.quests);
+  if (!parsed.questStatuses) throw new Error('RuneMetrics quest completion is unavailable or private.');
+  return parsed;
+}
+
+function normaliseProxyResponse(body) {
+  const levels = body?.levels || body?.skills || {};
+  let parsed = parseQuestList(body?.quests);
+  if (body?.questStatuses && typeof body.questStatuses === 'object') {
+    const questStatuses = {};
+    const completed = new Set(parsed.quests || []);
+    for (const [rawKey, rawEntry] of Object.entries(body.questStatuses)) {
+      const entry = typeof rawEntry === 'string' ? { status: rawEntry, title: rawKey } : rawEntry || {};
+      const title = String(entry.title || entry.name || rawKey).trim();
+      const status = String(entry.status || '').toUpperCase();
+      const key = normaliseQuestName(title);
+      if (!key || !status) continue;
+      questStatuses[key] = { ...entry, title, status };
+      if (status === 'COMPLETED') completed.add(title);
+    }
+    parsed = {
+      quests: [...completed],
+      questStatuses: Object.keys(questStatuses).length ? questStatuses : parsed.questStatuses,
+    };
+  }
+  return {
+    ...body,
+    levels,
+    quests: parsed.quests,
+    questStatuses: parsed.questStatuses,
+    source: body?.source || 'Configured player service',
   };
 }
 
@@ -126,8 +198,26 @@ export async function lookupPlayer(username) {
       headers: { accept: 'application/json' },
     });
     if (!response.ok) throw new Error(`Player lookup failed (${response.status}).`);
-    return response.json();
+    return normaliseProxyResponse(await response.json());
   }
 
-  return lookupViaWikiHiscores(name);
+  const [skillsResult, questsResult] = await Promise.allSettled([
+    lookupViaWikiHiscores(name),
+    lookupViaWikiRuneMetrics(name),
+  ]);
+  if (skillsResult.status === 'rejected') throw skillsResult.reason;
+  const skills = skillsResult.value;
+  const questData = questsResult.status === 'fulfilled'
+    ? questsResult.value
+    : { quests: null, questStatuses: null };
+  return {
+    ...skills,
+    ...questData,
+    source: questsResult.status === 'fulfilled'
+      ? 'RuneScape Wiki HiScores and RuneMetrics'
+      : skills.source,
+    questWarning: questsResult.status === 'rejected'
+      ? (questsResult.reason?.message || 'Quest completion could not be loaded.')
+      : null,
+  };
 }
